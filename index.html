@@ -1,37 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CV Job Matcher</title>
+    <meta charset="UTF-8">
+    <title>Lakshya Rojgar – Job Matches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .job-listing {
+            margin-top: 20px;
+        }
+        .job {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .job h3 {
+            margin: 0;
+            color: #007BFF;
+        }
+        .job p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <h1>Find Jobs That Match Your CV</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
-        <label>Preferred Job Location:</label><br>
-        <input type="text" name="location" required><br><br>
-        <label>Upload Your CV (PDF only):</label><br>
-        <input type="file" name="cv" accept=".pdf" required><br><br>
-        <button type="submit">Match Jobs</button>
-    </form>
+    <h1>Welcome to Lakshya Rojgar</h1>
+    <p>Here are some job matches based on your uploaded resume:</p>
 
-    <p>Don’t have a CV? Try free CV makers: 
-        <a href="https://www.canva.com/resumes/" target="_blank">Canva</a> or 
-        <a href="https://zety.com/resume-builder" target="_blank">Zety</a>
-    </p>
-
-    {% if jobs %}
-        <h2>Strong Matches for You</h2>
-        <ul>
-        {% for job in jobs %}
-            <li>
-                <strong>{{ job.title }}</strong> - {{ job.company }} ({{ job.location }})<br>
-                <form>
-                    <button type="button" onclick="alert('Application submitted for {{ job.title }} at {{ job.company }}')">Apply</button>
-                </form>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="job-listing">
+        {% if jobs %}
+            {% for job in jobs %}
+                <div class="job">
+                    <h3>{{ job.title }}</h3>
+                    <p><strong>Company:</strong> {{ job.company }}</p>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Description:</strong> {{ job.description }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No matching jobs found yet. Please upload your CV.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
